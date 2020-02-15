@@ -1,3 +1,14 @@
+**Prerequisites:**
+
+Import from maven.
+
+1. Selenium remote-driver 3.141.59
+2. Selenium server 3.141.59
+3. ExtentReports 4.1.3
+4. Appium java-client 7.3.0
+5. TestNG 7.1.0
+6. Slf4j-log4j 1.7.12
+
 **appium:**
 
 Appium server should be launched automatically by this script.
