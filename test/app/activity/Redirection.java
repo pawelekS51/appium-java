@@ -14,7 +14,7 @@ import java.io.File;
 
 public class Redirection extends RedirectionObjectPattern {
 
-    private ExtentTest redirectionTest;
+    private ExtentTest redirectionTest, redirectionTestNegative;
     private ExtentReports report;
     private ExtentLoggerReporter reporter;
 
@@ -25,6 +25,7 @@ public class Redirection extends RedirectionObjectPattern {
         report = new ExtentReports();
         report.attachReporter(reporter);
         redirectionTest = report.createTest("Test przekierowan", "Test polega na XYZ");
+        redirectionTestNegative = report.createTest("Test przekierowan - negatywny", "Test polega na XYZ");
     }
 
     @Test
@@ -38,11 +39,28 @@ public class Redirection extends RedirectionObjectPattern {
             Assert.assertEquals(test, "test");
             logger.info("Text attribute as expected.");
             redirectionTest.log(Status.PASS, "OK");
-            returnClearBtn().click();
         } else {
             logger.info("Text attribute not as expected.");
-            redirectionTest.log(Status.FAIL, "No OK");
+            redirectionTest.log(Status.FAIL, "Not OK");
         }
+        returnClearBtn().click();
+    }
+
+    @Test
+    private void redirectionTestNegative() {
+        startActivity();
+        returnGoButton().click();
+        returnApplyBtn().click();
+        String test = returnTextAfter().getAttribute("text");
+        if (test.isEmpty()) {
+            logger.info("Text attribute is empty.");
+            redirectionTestNegative.log(Status.FAIL, "OK");
+        } else {
+            Assert.assertNotNull(test);
+            logger.info("Text attribute is not empty.");
+            redirectionTestNegative.log(Status.PASS, "Not OK");
+        }
+        returnClearBtn().click();
     }
 
     @AfterClass

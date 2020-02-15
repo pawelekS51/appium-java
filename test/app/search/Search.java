@@ -14,7 +14,7 @@ import java.io.File;
 
 public class Search extends SearchObjectPattern {
 
-    ExtentTest alertDialogsTest;
+    ExtentTest searchInvokeTest, searchInvokeTestNegative;
     ExtentReports report;
     ExtentLoggerReporter reporter;
 
@@ -24,28 +24,44 @@ public class Search extends SearchObjectPattern {
         reporter = new ExtentLoggerReporter(path);
         report = new ExtentReports();
         report.attachReporter(reporter);
-        alertDialogsTest = report.createTest("Test dialogu", "Test polega na XYZ");
+        searchInvokeTest = report.createTest("Test wywołania wyszukiwania", "Test polega na XYZ");
+        searchInvokeTestNegative = report.createTest("Test wywołania wyszukiwania - negatywny", "Test polega na XYZ");
     }
 
     @Test
-    private void alertDialogsTest() {
+    private void searchInvokeTest() {
         startActivity();
-        returnSearchInput().sendKeys("Paweł Śliwa");
+        returnSearchInput().sendKeys("test");
         startSearchBtn().click();
         String test = androidInput().getText();
         if (test != null) {
-            Assert.assertEquals(test, "Paweł Śliwa");
+            Assert.assertEquals(test, "test");
             logger.info("Search text as expected.");
-            alertDialogsTest.log(Status.PASS, "OK");
+            searchInvokeTest.log(Status.PASS, "OK");
         } else {
             logger.info("Search text not as expected.");
-            alertDialogsTest.log(Status.PASS, "No OK");
+            searchInvokeTest.log(Status.FAIL, "Not OK");
+        }
+    }
+
+    @Test
+    private void searchInvokeTestNegative() {
+        startActivity();
+        startSearchBtn().click();
+        String test = androidInput().getText();
+        if (test.isEmpty()) {
+            logger.info("Search text is empty.");
+            searchInvokeTestNegative.log(Status.FAIL, "OK");
+        } else {
+            Assert.assertNotNull(test);
+            logger.info("Search text is not empty.");
+            searchInvokeTestNegative.log(Status.PASS, "Not OK");
         }
     }
 
     @AfterClass
     private void closeReport() {
-        logger.info("Redirection test completed.");
+        logger.info("Search test completed.");
         report.flush();
     }
 }
