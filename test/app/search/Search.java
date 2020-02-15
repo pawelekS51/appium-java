@@ -35,14 +35,17 @@ public class Search extends SearchObjectPattern {
         String test = androidInput().getText();
         if (test != null) {
             Assert.assertEquals(test, "Paweł Śliwa");
+            logger.info("Search text as expected.");
             alertDialogsTest.log(Status.PASS, "OK");
         } else {
+            logger.info("Search text not as expected.");
             alertDialogsTest.log(Status.PASS, "No OK");
         }
     }
 
     @AfterClass
     private void closeReport() {
+        logger.info("Redirection test completed.");
         report.flush();
     }
 }

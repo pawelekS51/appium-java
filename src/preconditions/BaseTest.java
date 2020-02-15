@@ -5,14 +5,15 @@ import org.testng.annotations.BeforeSuite;
 
 public abstract class BaseTest extends DriverSetup {
 
-
     @BeforeSuite
-    private void globalSetup() {
+    public void globalSetup() {
+        serviceStart();
         setUp();
     }
 
     @AfterSuite
-    private void globalTearDown() {
+    public void globalTearDown() {
         tearDown();
+        serviceStop();
     }
 }

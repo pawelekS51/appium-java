@@ -36,15 +36,18 @@ public class Redirection extends RedirectionObjectPattern {
         String test = returnTextAfter().getAttribute("text");
         if (test != null) {
             Assert.assertEquals(test, "test");
+            logger.info("Text attribute as expected.");
             redirectionTest.log(Status.PASS, "OK");
             returnClearBtn().click();
         } else {
+            logger.info("Text attribute not as expected.");
             redirectionTest.log(Status.FAIL, "No OK");
         }
     }
 
     @AfterClass
     private void closeReport() {
+        logger.info("Redirection test completed.");
         report.flush();
     }
 }

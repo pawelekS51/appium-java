@@ -5,8 +5,8 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
@@ -15,10 +15,20 @@ public class DriverSetup {
 
     protected static AndroidDriver<WebElement> driver;
     protected static AppiumDriverLocalService service;
+    protected static Logger logger;
 
-    @BeforeClass
+    public void serviceStart() {
+        service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
+    }
+
+    private URL getServiceUrl() {
+        return service.getUrl();
+    }
+
     public void setUp() {
-        serviceStart();
+        startLogger();
+        logger.info("Service has started.");
 
         File path = new File("src");
         File apk = new File(path, "ApiDemos-debug.apk");
@@ -30,22 +40,16 @@ public class DriverSetup {
         driver = new AndroidDriver<>(getServiceUrl(), caps);
     }
 
-    private URL getServiceUrl() {
-        return service.getUrl();
+    private void startLogger() {
+        logger = LoggerFactory.getLogger(DriverSetup.class);
     }
 
-    private void serviceStart() {
-        service = AppiumDriverLocalService.buildDefaultService();
-        service.start();
-    }
-
-    @AfterClass
     public void tearDown() {
         driver.quit();
-        serviceStop();
+        logger.info("Service has stopped.");
     }
 
-    private void serviceStop() {
+    public void serviceStop() {
         service.stop();
     }
 

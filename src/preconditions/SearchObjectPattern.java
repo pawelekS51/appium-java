@@ -11,6 +11,9 @@ public class SearchObjectPattern extends BaseTest {
     private static final String SEARCH_ACTIVITY = ".app.SearchInvoke";
     private static final String PACKAGE = "io.appium.android.apis";
 
+    private static String nameTextField = "text field";
+    private static String nameSearchBtn = "search button";
+
     protected void startActivity() {
         driver.startActivity(new Activity(PACKAGE, SEARCH_ACTIVITY));
     }
@@ -20,6 +23,7 @@ public class SearchObjectPattern extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("io.appium.android.apis:id/txt_query_prefill")));
         AndroidElement searchInput = (AndroidElement) driver.findElement(By.id("io.appium.android.apis:id/txt_query_prefill"));
+        logger.info("Found required element - " + nameTextField);
         return searchInput;
     }
 
@@ -28,6 +32,7 @@ public class SearchObjectPattern extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("io.appium.android.apis:id/btn_start_search")));
         AndroidElement startSearchBtn = (AndroidElement) driver.findElement(By.id("io.appium.android.apis:id/btn_start_search"));
+        logger.info("Found required element - " + nameSearchBtn);
         return startSearchBtn;
     }
 
@@ -36,6 +41,7 @@ public class SearchObjectPattern extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/search_src_text")));
         AndroidElement androidInput = (AndroidElement) driver.findElement(By.id("android:id/search_src_text"));
+        logger.info("Found required element - " + nameTextField);
         return androidInput;
     }
 }
