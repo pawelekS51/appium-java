@@ -9,6 +9,8 @@ Import from maven.
 5. TestNG 7.1.0
 6. Slf4j-log4j 1.7.12
 
+Installed node.js.
+
 **appium:**
 
 Appium server should be launched automatically by this script.
@@ -21,6 +23,11 @@ Appium server should be launched automatically by this script.
 **Running tests:**
 
 You can run test directly from IDE by testSuite.xml
+
+**Troubleshooting:**
+
+In case you encounter any problems, please check that all of required libraries are properly attached to project and appium is installed.
+Test app is not using hardcoded path so it shouldn't cause problems.
 
 **Notes:**
 
