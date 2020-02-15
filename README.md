@@ -4,7 +4,7 @@ Appium server should be launched automatically by this script.
 
 **Instructions:**
 
-1. npm install -g appium
+1. npm install appium -g
 2. Modify 'DEVICE_NAME' in /src/com.test/BaseTest.java to your emulator or device name (from adb).
 
 **Running tests:**
