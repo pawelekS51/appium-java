@@ -25,4 +25,5 @@ You can run test directly from IDE by testSuite.xml
 **Notes:**
 
 You can view test reports in project tree - /reports/*casename*
+
 Project was built and runned under IntelliJ Community 2019.3.3
